@@ -9,12 +9,16 @@ class Affine(Cipher):
     
     def __init__(self):
         """Initializes instance of Affine Cipher."""
-#        self.key_a = key_a
-#        self.key_b = key_b
         self.ALPHA = string.ascii_uppercase
         
     def encrypt(self, text, key_a, key_b):
-        """Encrypt a string, via instance.encrypt(string)."""
+        """Encrypt a string, via instance.encrypt(string).
+        Only the value of a has a restriction since it has to be coprime with 26.
+        The possible values that a could be are 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, and 25.     
+        """
+        # wikipedia's affine example puts key_a as 5 and key_b as 8.
+        # work try except script in to ensure key_a is valid
+        # and make sure affine cipher can deal with non-letters.
         affine_cip = ""
         output_string = ""
         text = text.upper()
@@ -41,38 +45,3 @@ class Affine(Cipher):
             output_string += rev_alpha_dict[rev_affine_dict[char]]            
         return output_string
         
-        # input_string = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
-# output_string = ""
-# affine_num = []
-# key_a = 5
-# key_b = 8
-
-# alpha = string.ascii_uppercase
-# affine_cip = ""
-# for char in alpha:
-#    affine_cip += (alpha[(key_a * alpha.index(char) + key_b) % 26])
-
-# Compare each letter in input string to each letter in full alphabet,
-# Return corresponding letter in cipher.
-    
-# print(input_string)
-# input_string -> alpha_index [int list] -> cipher_index [int list] -> output_string
-# alpha_dict = {letter: number for number, letter in zip(range(0,26), alpha)}
-
-# affine_dict = {number: letter for letter, number in zip(affine_cip, range(0,26))}
-
-# for char in input_string:
-#    output_string += affine_dict[alpha_dict[char]]
-    
-# print(output_string)
-
-# new_output = ""
-# rev_affine_dict = {number: letter for letter, number in zip(range(0,26), affine_cip)}
-
-# rev_alpha_dict = {letter: number for number, letter in zip(alpha, range(0,26))}
-
-
-# for char in output_string:
-#    new_output += rev_alpha_dict[rev_affine_dict[char]]
-    
-# print(new_output)
