@@ -3,9 +3,10 @@ import string
 from ciphers import Cipher
 # Imports superclass.
 
+
 class Caesar(Cipher):
     """The Caesar Cipher."""
-    FORWARD = string.ascii_uppercase * 3 
+    FORWARD = string.ascii_uppercase * 3
     # Sets variable FORWARD to 3 sets of entire all-caps alphabet.
 
     def __init__(self, offset=3):
@@ -17,9 +18,7 @@ class Caesar(Cipher):
         self.offset = offset
         # Sets instance.offset to offset argument, in this case, "3".
         self.FORWARD = string.ascii_uppercase + string.ascii_uppercase[:self.offset+1]
-        # Sets instance.FORWARD to all-caps alphabet (plus alpha to offset (which is 3) plus 1).
         self.BACKWARD = string.ascii_uppercase[:self.offset+1] + string.ascii_uppercase
-        # Sets instance.BACKWARD to an all caps offset + 1, plus full alphabet.
 
     def encrypt(self, text):
         """Encrypt a string, via instance.encrypt(string)."""
