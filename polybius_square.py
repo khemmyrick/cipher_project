@@ -51,7 +51,7 @@ class Polybius_square(Cipher):
         output_string = output_string.replace(")]", "")
         output_string = output_string.replace(")'", "")
         output_string = output_string.replace("'(", "")
-        print(output_string)
+        return output_string
     
             
     
@@ -80,6 +80,6 @@ class Polybius_square(Cipher):
             itera -= 2
     
         output = ''.join(output_list)
-        print(output)
+        return output
         
         #decrypt('2052040313005101400203')
