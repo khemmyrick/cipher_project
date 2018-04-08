@@ -4,8 +4,9 @@ from caesar import Caesar
 from affine import Affine
 from atbash import Atbash
 from polybius_square import Polybius_square
+# from adfgvx import Adfgvx
 
-c_list = ["CAESAR", "AFFINE", "ATBASH", "POLYBIUS SQUARE", "SPAM"]
+c_list = ["CAESAR", "AFFINE", "ATBASH", "POLYBIUS SQUARE"]
 
 
 def encrypt_message(session):
@@ -53,6 +54,8 @@ def secrets():
     -----Atbash------
     -----------------
     -Polybius Square-
+    -----------------
+    -----ADFGVX------
     -----------------
     > """)
     clear_screen()
@@ -110,7 +113,19 @@ For the first key, please choose an integer from the following:
                 message = input("Please enter code. Numbers only. No spaces.")
                 print(session.decrypt(str(message)))
                 restart()
-        # else:
+        # elif c_selection.upper() == c_list[4]:
+        #    print("Caution: shelf-life of this cipher is under 1 month.")
+        #    session = Adfgvx()
+        #    ende = input("Would you like to encrypt or decrypt? > ")
+        #    if ende.lower() == 'encrypt':
+        # Also needs keyword.
+        #        message = input("Please insert message. "
+        #                        "(Letters only, please.) > ")
+        #    elif ende.lower() == 'decrypt':
+        # Also needs keyword.
+        #        message = input("Please enter code. Letters only. No spaces.")
+        #        print(session.decrypt(str(message)))
+
     else:
         print("""There is no {}.
         Please choose from available ciphers.""".format(c_selection))
