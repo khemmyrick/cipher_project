@@ -12,10 +12,7 @@ class Affine(Cipher):
         self.ALPHA = string.ascii_uppercase
 
     def encrypt(self, text, key_a, key_b):
-        """Encrypt a string, via instance.encrypt(string).
-        Only the value of a has a restriction since it has to be coprime with 26.
-        The possible values that a could be are 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, and 25.
-        """
+        """Encrypt a string, via instance.encrypt(string)."""
         # wikipedia's affine example puts key_a as 5 and key_b as 8.
         # work try except script in to ensure key_a is valid
         # and make sure affine cipher can deal with non-letters.
@@ -23,9 +20,13 @@ class Affine(Cipher):
         output_string = ""
         text = text.upper()
         for char in self.ALPHA:
-            affine_cip += (self.ALPHA[(key_a * self.ALPHA.index(char) + key_b) % 26])
-        alpha_dict = {letter: number for number, letter in zip(range(0, 26), self.ALPHA)}
-        affine_dict = {number: letter for letter, number in zip(affine_cip, range(0, 26))}
+            affine_cip += (self.ALPHA[(key_a *
+                                       self.ALPHA.index(char) +
+                                       key_b) % 26])
+        alpha_dict = {letter: number
+                      for number, letter in zip(range(0, 26), self.ALPHA)}
+        affine_dict = {number: letter
+                       for letter, number in zip(affine_cip, range(0, 26))}
         for char in text:
             output_string += affine_dict[alpha_dict[char]]
 
@@ -37,9 +38,13 @@ class Affine(Cipher):
         output_string = ""
         text = text.upper()
         for char in self.ALPHA:
-            affine_cip += (self.ALPHA[(key_a * self.ALPHA.index(char) + key_b) % 26])
-        rev_affine_dict = {number: letter for letter, number in zip(range(0, 26), affine_cip)}
-        rev_alpha_dict = {letter: number for number, letter in zip(self.ALPHA, range(0, 26))}
+            affine_cip += (self.ALPHA[(key_a *
+                                       self.ALPHA.index(char) +
+                                       key_b) % 26])
+        rev_affine_dict = {number: letter
+                           for letter, number in zip(range(0, 26), affine_cip)}
+        rev_alpha_dict = {letter: number
+                          for number, letter in zip(self.ALPHA, range(0, 26))}
         for char in text:
             output_string += rev_alpha_dict[rev_affine_dict[char]]
         return output_string

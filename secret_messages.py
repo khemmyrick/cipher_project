@@ -1,22 +1,19 @@
 import os
+import string
 
 from caesar import Caesar
 from affine import Affine
 from atbash import Atbash
 from polybius_square import Polybius_square
-# from adfgvx import Adfgvx
+
 
 c_list = ["CAESAR", "AFFINE", "ATBASH", "POLYBIUS SQUARE"]
 
+c_strintlist = ["1", "2", "3", "4"]
 
-def encrypt_message(session):
-    message = input("What message would you like to encrypt? > ")
-    print(session.encrypt(message))
+a_list = [3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
 
-
-def decrypt_message(session):
-    message = input("What message would you like to decrypt? > ")
-    print(session.decrypt(message))
+CHARS_STR = string.ascii_uppercase + '0123456789'
 
 
 def clear_screen():
@@ -25,111 +22,159 @@ def clear_screen():
 
 
 def press_start():
-    start = input("Greetings agent. Do you have a message? y/n > ")
-    if start == "y":
+    """Start the app."""
+    start = input("Greetings agent. Do you have a message? Y/n > ")
+    if start == "n":
+        quit()
+    else:
         clear_screen()
         secrets()
-    else:
-        quit()
 
 
 def restart():
-    again = input("Encrypt or decrypt another message? y/n > ")
-    if again == "y":
+    """Restart the app."""
+    again = input("Encrypt or decrypt another message? Y/n > ")
+    if again.lower() == "n":
+        quit()
+    else:
         clear_screen()
         secrets()
-    else:
-        quit()
 
 
-def secrets():
+def encrypt_message(session):
+    """Encrypt a messsage."""
+    message = input("What message would you like to encrypt? > ")
+    print(session.encrypt(message))
+
+
+def decrypt_message(session):
+    """Decrypt a message."""
+    message = input("What message would you like to decrypt? > ")
+    # message = message.replace(" ", "")
+    print(session.decrypt(message))
+
+
+def affine_encrypt(session):
+    """Encrypt a message using Affine Cipher."""
+    while True:
+        key_a = input("""Please select the first of 2 keys, from the following:
+        3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 > """)
+        if int(key_a) in a_list:
+            key_b = input("Please choose any integer for second key. > ")
+            try:
+                b_num = int(key_b)
+                message = input("What message would you like to encrypt? > ")
+                message = message.replace(' ', '')
+                print(session.encrypt(message, int(key_a), b_num))
+                return
+            except ValueError:
+                print("Both keys must be integers.")
+                continue
+            else:
+                continue
+        else:
+            print("First key number must be chosen from the list.")
+            continue
+
+
+def affine_decrypt(session):
+    """Decrypt a message using Affine Cipher."""
+    while True:
+        key_a = input("""Please select the first of 2 keys, from the following:
+        3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 > """)
+        if int(key_a) in a_list:
+            key_b = input("Please choose any integer for second key. > ")
+            try:
+                b_num = int(key_b)
+                message = input("What message would you like to encrypt? > ")
+                print(session.decrypt(message, int(key_a), b_num))
+                return
+            except ValueError:
+                print("Both keys must be integers.")
+                continue
+            else:
+                continue
+        else:
+            print("First key number must be chosen from the list.")
+            continue
+
+
+def c_select(ende):
     c_selection = input(
         """Excellent.
-    Please select your cipher.
-    -----------------
-    -----Caesar------
-    -----------------
-    -----Affine------
-    -----------------
-    -----Atbash------
-    -----------------
-    -Polybius Square-
-    -----------------
-    -----ADFGVX------
-    -----------------
+    Please select your cipher by name or number.
+    -------------------------
+    ---[1]----Caesar---------
+    -------------------------
+    ---[2]----Affine---------
+    -------------------------
+    ---[3]----Atbash---------
+    -------------------------
+    ---[4]-Polybius Square---
+    -------------------------
     > """)
     clear_screen()
-    print(c_selection.upper() + ":")
 
-    if c_selection.upper() in c_list:
-        if c_selection.upper() == c_list[0]:
-            print("The emperor of ciphers.")
+    if c_selection.upper() in c_list or str(c_selection) in c_strintlist:
+        if c_selection.upper() == c_list[0] or c_selection == "1":
+            print("CAESAR: \n The emperor of ciphers.")
             session = Caesar()
-            ende = input("Would you like to encrypt or decrypt? > ")
-            if ende.lower() == 'encrypt':
+            if ende == 'encrypt':
                 encrypt_message(session)
                 restart()
-            elif ende.lower() == 'decrypt':
+            elif ende == 'decrypt':
                 decrypt_message(session)
                 restart()
-        elif c_selection.upper() == c_list[1]:
-            print("A very fine cipher indeed!")
+        elif c_selection.upper() == c_list[1] or c_selection == "2":
+            print("AFFINE: \n A very fine cipher indeed!")
             session = Affine()
-            ende = input("Would you like to encrypt or decrypt? > ")
-            if ende.lower() == 'encrypt':
-                key_a = input("""Please record the two keys you use to get this code.
-For the first key, please choose an integer from the following:
-    3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 > """)
-                key_b = input("Please choose any integer for second key. > ")
-                message = input("What message would you like to encrypt? > ")
-                print(session.encrypt(message, int(key_a), int(key_b)))
+            if ende == 'encrypt':
+                affine_encrypt(session)
                 restart()
-            elif ende.lower() == 'decrypt':
-                key_a = input("Please insert the first key number. > ")
-                key_b = input("Please insert the second key number. > ")
-                message = input("What message would you like to decrypt? > ")
-                print(session.decrypt(message, int(key_a), int(key_b)))
+            elif ende == 'decrypt':
+                affine_decrypt(session)
                 restart()
-        elif c_selection.upper() == c_list[2]:
-            print("For minimum security messages only.")
+        elif c_selection.upper() == c_list[2] or c_selection == "3":
+            print("ATBASH: \n For minimum security messages only. \n"
+                  "Warning: Non-letters will not be encoded.")
             session = Atbash()
-            ende = input("Would you like to encrypt or decrypt? > ")
-            if ende.lower() == 'encrypt':
+            if ende == 'encrypt':
                 encrypt_message(session)
                 restart()
-            elif ende.lower() == 'decrypt':
+            elif ende == 'decrypt':
                 decrypt_message(session)
                 restart()
-        elif c_selection.upper() == c_list[3]:
-            print("Sharp on all four corners.")
+        elif c_selection.upper() == c_list[3] or c_selection == "4":
+            print("POLYBIUS SQUARE: \n Sharp on all four corners.")
             session = Polybius_square()
-            ende = input("Would you like to encrypt or decrypt? > ")
-            if ende.lower() == 'encrypt':
-                message = input("Please insert message. "
-                                "(Letters and numbers only please.) > ")
+            if ende == 'encrypt':
+                message = input("Please insert message to encrypt. "
+                                "Only letters/numbers will be encrypted. > ")
+                message = message.replace(' ', '')
                 print(session.encrypt(message))
                 restart()
-            elif ende.lower() == 'decrypt':
-                message = input("Please enter code. Numbers only. No spaces.")
+            elif ende == 'decrypt':
+                message = input("Please enter code. Numbers only."
+                                "No spaces. > ")
+                message = message.replace(' ', '')
+                message = message.replace('.', '')
                 print(session.decrypt(str(message)))
                 restart()
-        # elif c_selection.upper() == c_list[4]:
-        #    print("Caution: shelf-life of this cipher is under 1 month.")
-        #    session = Adfgvx()
-        #    ende = input("Would you like to encrypt or decrypt? > ")
-        #    if ende.lower() == 'encrypt':
-        # Also needs keyword.
-        #        message = input("Please insert message. "
-        #                        "(Letters only, please.) > ")
-        #    elif ende.lower() == 'decrypt':
-        # Also needs keyword.
-        #        message = input("Please enter code. Letters only. No spaces.")
-        #        print(session.decrypt(str(message)))
-
     else:
         print("""There is no {}.
         Please choose from available ciphers.""".format(c_selection))
         restart()
 
+
+def secrets():
+    ende = input("What would you like to do? \n"
+                 "Type 'E' or 'ENCRYPT' for encrypt(default setting). \n"
+                 "Type 'D' or 'DECRYPT' for decrypt. \n"
+                 "> ")
+    if ende.lower() == 'd' or ende.lower() == 'decrypt':
+        ende = 'decrypt'
+    else:
+        ende = 'encrypt'
+    c_select(ende)
 
 press_start()

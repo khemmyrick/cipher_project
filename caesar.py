@@ -1,7 +1,6 @@
 import string
 
 from ciphers import Cipher
-# Imports superclass.
 
 
 class Caesar(Cipher):
@@ -28,16 +27,11 @@ class Caesar(Cipher):
         for char in text:
             try:
                 index = self.FORWARD.index(char)
-                # Check that each character being encrypted is a letter.
             except ValueError:
-                # If index not a letter, leave unchanged.
-                # Spaces, punctuation even numbers pass through unchanged.
                 output.append(char)
             else:
                 output.append(self.FORWARD[index+self.offset])
-                # Append encrypted string to output variable.
         return ''.join(output)
-        # Return encrypted string.
 
     def decrypt(self, text):
         """Decrypt a string."""
@@ -47,8 +41,6 @@ class Caesar(Cipher):
             try:
                 index = self.BACKWARD.index(char)
             except ValueError:
-                # If not a letter, leave unchanged.
-                # Spaces, punctuation even numbers pass through unchanged.
                 output.append(char)
             else:
                 output.append(self.BACKWARD[index-self.offset])
