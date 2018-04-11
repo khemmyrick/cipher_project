@@ -3,7 +3,7 @@ import string
 from ciphers import Cipher
 
 
-class Polybius_square(Cipher):
+class PolybiusSquare(Cipher):
     """The Polybius Square Cipher."""
 
     def __init__(self):

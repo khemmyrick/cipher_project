@@ -4,7 +4,7 @@ import string
 from caesar import Caesar
 from affine import Affine
 from atbash import Atbash
-from polybius_square import Polybius_square
+from polybius_square import PolybiusSquare
 
 
 c_list = ["CAESAR", "AFFINE", "ATBASH", "POLYBIUS SQUARE"]
@@ -146,7 +146,7 @@ def c_select(ende):
                 restart()
         elif c_selection.upper() == c_list[3] or c_selection == "4":
             print("POLYBIUS SQUARE: \n Sharp on all four corners.")
-            session = Polybius_square()
+            session = PolybiusSquare()
             if ende == 'encrypt':
                 message = input("Please insert message to encrypt. "
                                 "Only letters/numbers will be encrypted. > ")
