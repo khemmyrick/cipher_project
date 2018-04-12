@@ -13,9 +13,6 @@ class Affine(Cipher):
 
     def encrypt(self, text, key_a, key_b):
         """Encrypt a string, via instance.encrypt(string)."""
-        # wikipedia's affine example puts key_a as 5 and key_b as 8.
-        # work try except script in to ensure key_a is valid
-        # and make sure affine cipher can deal with non-letters.
         affine_cip = ""
         output_string = ""
         text = text.upper()

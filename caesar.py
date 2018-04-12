@@ -6,7 +6,6 @@ from ciphers import Cipher
 class Caesar(Cipher):
     """The Caesar Cipher."""
     FORWARD = string.ascii_uppercase * 3
-    # Sets variable FORWARD to 3 sets of entire all-caps alphabet.
 
     def __init__(self, offset=3):
         """Initializes an instance of the Caesar cipher.
@@ -23,7 +22,6 @@ class Caesar(Cipher):
         """Encrypt a string, via instance.encrypt(string)."""
         output = []
         text = text.upper()
-        # Converts text argument to all caps.
         for char in text:
             try:
                 index = self.FORWARD.index(char)

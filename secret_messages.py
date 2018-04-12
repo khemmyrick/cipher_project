@@ -70,6 +70,9 @@ def affine_encrypt(session):
             except ValueError:
                 print("Both keys must be integers.")
                 continue
+            except KeyError:
+                print("Letters only, please.")
+                continue
             else:
                 continue
         else:
@@ -81,7 +84,7 @@ def affine_decrypt(session):
     """Decrypt a message using Affine Cipher."""
     while True:
         key_a = input("""Please select the first of 2 keys, from the following:
-        3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 > """)
+        3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 \n > """)
         if int(key_a) in a_list:
             key_b = input("Please choose any integer for second key. > ")
             try:
@@ -92,6 +95,9 @@ def affine_decrypt(session):
             except ValueError:
                 print("Both keys must be integers.")
                 continue
+            except KeyError:
+                print("Letters only, please.")
+                continue
             else:
                 continue
         else:
@@ -99,7 +105,20 @@ def affine_decrypt(session):
             continue
 
 
+def polys_encrypt(session):
+    message = input("Please insert message to encrypt. "
+                    "Only letters/numbers will be encrypted. > ")
+    print(session.encrypt(message))
+
+
+def polys_decrypt(session):
+    message = input("Please enter code. Numbers 0 through 5 only."
+                    "No spaces. > ")
+    print(session.decrypt(str(message)))
+
+
 def c_select(ende):
+    """Select the cipher."""
     c_selection = input(
         """Excellent.
     Please select your cipher by name or number.
@@ -148,17 +167,10 @@ def c_select(ende):
             print("POLYBIUS SQUARE: \n Sharp on all four corners.")
             session = PolybiusSquare()
             if ende == 'encrypt':
-                message = input("Please insert message to encrypt. "
-                                "Only letters/numbers will be encrypted. > ")
-                message = message.replace(' ', '')
-                print(session.encrypt(message))
+                polys_encrypt(session)
                 restart()
             elif ende == 'decrypt':
-                message = input("Please enter code. Numbers only."
-                                "No spaces. > ")
-                message = message.replace(' ', '')
-                message = message.replace('.', '')
-                print(session.decrypt(str(message)))
+                polys_decrypt(session)
                 restart()
     else:
         print("""There is no {}.

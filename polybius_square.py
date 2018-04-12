@@ -39,8 +39,14 @@ class PolybiusSquare(Cipher):
     def decrypt(self, text):
         """Decrypts code.  Input must be all numbers."""
         output_list = []
+        bad_news = ''
+        for char in text:
+            try:
+                int(char)
+            except ValueError:
+                text = text.replace(char, '')
+                continue
         itera = len(text)
-
         while itera > 0:
             oops = False
             try:
@@ -48,18 +54,18 @@ class PolybiusSquare(Cipher):
                 output_list.append(self.NUM_AZ[temp_tup])
                 text = text.replace(text[:2], '', 1)
                 itera -= 2
-            except ValueError:
-                print("Error: Expected integer(s), got non-integer(s). \n"
-                      "This is an incorrect Polybius Cipher.")
+            except KeyError:
+                bad_news += "User Input Error: \n"
+                bad_news += "Cipher should only contain numbers 0 through 5."
                 oops = True
                 itera -= itera
             except IndexError:
-                print("Error: Odd number of digits. \n"
-                      "This is an incorrect Polybius Cipher.")
+                bad_news += "User Input Error: \n"
+                bad_news += "Odd number of digits for Polybius Square Cipher."
                 oops = True
                 itera -= itera
         if oops:
-            return "No decryption available."
+            return bad_news
         else:
             output = ''.join(output_list)
             return output
