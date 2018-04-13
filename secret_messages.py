@@ -7,9 +7,16 @@ from atbash import Atbash
 from polybius_square import PolybiusSquare
 
 
-c_list = ["CAESAR", "AFFINE", "ATBASH", "POLYBIUS SQUARE"]
-
-c_strintlist = ["1", "2", "3", "4"]
+c_list = [
+    "CAESAR",
+    "AFFINE",
+    "ATBASH",
+    "POLYBIUS SQUARE",
+    "1",
+    "2",
+    "3",
+    "4"
+]
 
 affine_list = [3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
 
@@ -55,7 +62,7 @@ def decrypt_message(session):
 
 
 def affine_session(session, ende):
-    """Encrypt a message using Affine Cipher."""
+    """Encrypt or decrypt a message using Affine Cipher."""
     while True:
         key_a = input("""Select the first of 2 keys, from the following:
         3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 > """)
@@ -91,12 +98,14 @@ def affine_session(session, ende):
 
 
 def polys_encrypt(session):
+    """Encrypt a message using Polybius Square Cipher."""
     message = input("Please insert message to encrypt. "
                     "Only letters/numbers will be encrypted. > ")
     print(session.encrypt(message))
 
 
 def polys_decrypt(session):
+    """Decrypt a message using Polybius Square Cipher."""
     message = input("Please enter code. Numbers 0 through 5 only."
                     "No spaces. > ")
     print(session.decrypt(str(message)))
@@ -119,7 +128,7 @@ def cipher_select(ende):
     > """)
     clear_screen()
 
-    if c_selection.upper() in c_list or str(c_selection) in c_strintlist:
+    if c_selection.upper() in c_list:
         if c_selection.upper() == c_list[0] or c_selection == "1":
             print("CAESAR: \n The emperor of ciphers.")
             session = Caesar()

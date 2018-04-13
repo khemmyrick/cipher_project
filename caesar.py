@@ -14,9 +14,13 @@ class Caesar(Cipher):
         can be used to decrypt said strings.
         """
         self.offset = offset
-        # Sets instance.offset to offset argument, in this case, "3".
-        self.FORWARD = string.ascii_uppercase + string.ascii_uppercase[:self.offset+1]
-        self.BACKWARD = string.ascii_uppercase[:self.offset+1] + string.ascii_uppercase
+        # Sets instance.offset to offset argument, in this case, 3.
+        self.FORWARD = (
+            string.ascii_uppercase + string.ascii_uppercase[:self.offset+1]
+        )
+        self.BACKWARD = (
+            string.ascii_uppercase[:self.offset+1] + string.ascii_uppercase
+        )
 
     def encrypt(self, text):
         """Encrypt a string, via instance.encrypt(string)."""
