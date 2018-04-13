@@ -1,5 +1,4 @@
 import os
-import string
 
 from caesar import Caesar
 from affine import Affine
@@ -19,8 +18,6 @@ c_list = [
 ]
 
 affine_list = [3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
-
-CHARS_STR = string.ascii_uppercase + '0123456789'
 
 
 def clear_screen():
@@ -168,6 +165,7 @@ def cipher_select(ende):
 
 
 def secrets():
+    """Ask if user wants to encrypt or decrypt."""
     ende = input("What would you like to do? \n"
                  "Type 'E' or 'ENCRYPT' for encrypt(default setting). \n"
                  "Type 'D' or 'DECRYPT' for decrypt. \n"

@@ -18,6 +18,7 @@ class PolybiusSquare(Cipher):
                             for keey, valu in self.AZ_NUMGRID.items()])
 
     def encrypt(self, text):
+        """Encrypts letters and numbers, ignores all else."""
         text = text.upper()
         output_string = ''
         poly_cip = []
